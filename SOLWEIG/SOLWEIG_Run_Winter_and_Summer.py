@@ -9,14 +9,14 @@ from PyQt5.QtWidgets import QProgressDialog
 
 QgsApplication.processingRegistry().addProvider(QgsNativeAlgorithms())
 
-spatial_res = input("Enter spatial resolution (2- or 10-m): ")
+spatial_res = input('Enter spatial resolution (2- or 10-m): ')
 if spatial_res not in ('2', '10'):
-    print("Invalid spatial resolution.")
+    print('Invalid spatial resolution.')
     exit(1)
 seasons = ['winter', 'summer']
-season = input("Select season (winter/summer): ")
+season = input('Select season (winter/summer): ')
 if season not in seasons:
-    print("Invalid season.")
+    print('Invalid season.')
     exit(1)
 
 met_base_path = 'X:/UMEP/Meteorology_Clusters/'
@@ -73,8 +73,8 @@ for cluster in clusters:
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    progress_dialog = QProgressDialog("Running SOLWEIG...", "Abort", 0, 100)
-    progress_dialog.setWindowTitle("Processing")
+    progress_dialog = QProgressDialog('Running SOLWEIG...', 'Abort', 0, 100)
+    progress_dialog.setWindowTitle('Processing')
     progress_dialog.setModal(True)
     progress_dialog.show()
 
@@ -85,9 +85,9 @@ for cluster in clusters:
     feedback = Feedback()
 
     try:
-        result = processing.run("umep:Outdoor Thermal Comfort: SOLWEIG", params, feedback=feedback)
-        QgsApplication.messageLog().logMessage(f"Task finished with result: {result}", 'Info')
+        result = processing.run('umep:Outdoor Thermal Comfort: SOLWEIG', params, feedback=feedback)
+        QgsApplication.messageLog().logMessage(f'Task finished with result: {result}', 'Info')
     except Exception as e:
-        QgsApplication.messageLog().logMessage(f"Task failed: {str(e)}", 'Info')
+        QgsApplication.messageLog().logMessage(f'Task failed: {str(e)}', 'Info')
 
     progress_dialog.close()

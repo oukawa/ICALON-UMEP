@@ -7,14 +7,14 @@ from qgis.core import QgsApplication, QgsProcessingFeedback
 from qgis.analysis import QgsNativeAlgorithms
 from PyQt5.QtWidgets import QProgressDialog
 
-spatial_res = input("Enter spatial resolution (2- or 10-m): ")
+spatial_res = input('Enter spatial resolution (2- or 10-m): ')
 if spatial_res not in ('2', '10'):
-    print("Invalid spatial resolution.")
+    print('Invalid spatial resolution.')
     exit(1)
 seasons = ['winter', 'summer']
-season = input("Select season (winter/summer): ")
+season = input('Select season (winter/summer): ')
 if season not in seasons:
-    print("Invalid season.")
+    print('Invalid season.')
     exit(1)
 
 Tmrt_base_path = 'X:/UMEP/Tmrt/'
@@ -45,16 +45,16 @@ def run_solweig_utci_algorithm(input_file, output_file):
     params['TMRT_MAP'] = input_file
     params['TC_OUT'] = output_file
 
-    progress_dialog = QProgressDialog("Running SOLWEIG...", "Abort", 0, 100)
-    progress_dialog.setWindowTitle("Processing")
+    progress_dialog = QProgressDialog('Running SOLWEIG...', 'Abort', 0, 100)
+    progress_dialog.setWindowTitle('Processing')
     progress_dialog.setModal(True)
     progress_dialog.show()
 
     try:
-        result = processing.run("umep:Outdoor Thermal Comfort: Spatial Thermal Comfort", params)
-        QgsApplication.messageLog().logMessage(f"Task finished for {input_file} with result: {result}", 'Info')
+        result = processing.run('umep:Outdoor Thermal Comfort: Spatial Thermal Comfort', params)
+        QgsApplication.messageLog().logMessage(f'Task finished for {input_file} with result: {result}', 'Info')
     except Exception as e:
-        QgsApplication.messageLog().logMessage(f"Task failed for {input_file}: {str(e)}", 'Info')
+        QgsApplication.messageLog().logMessage(f'Task failed for {input_file}: {str(e)}', 'Info')
 
     progress_dialog.close()
 
@@ -68,10 +68,10 @@ for cluster in clusters:
     tmrt_files.sort()
 
     if not tmrt_files:
-        print(f"No valid Tmrt files found in {cluster_path}.")
+        print(f'No valid Tmrt files found in {cluster_path}.')
         continue
 
-    print(f"Found {len(tmrt_files)} Tmrt files in {cluster_path}.")
+    print(f'Found {len(tmrt_files)} Tmrt files in {cluster_path}.')
 
     for tmrt_file in tmrt_files:
         file_name = os.path.basename(tmrt_file)
